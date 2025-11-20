@@ -2,7 +2,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div>root</div>
+    <div>membership join page</div>
   )
 }
 
