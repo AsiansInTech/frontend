@@ -13,3 +13,5 @@ export const healthController = {
   },
 };
 
+export { officersController } from './officers.controller';
+

@@ -4,3 +4,5 @@ export const healthRepository = {
   },
 };
 
+export { officersRepository } from './officers.repository';
+

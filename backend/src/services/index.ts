@@ -6,3 +6,5 @@ export const healthService = {
   },
 };
 
+export { officersService } from './officers.service';
+
