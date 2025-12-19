@@ -68,7 +68,6 @@ const mapPageToMember = (page: PageObjectResponse): Member => {
     joinDate: getDateValue(props['Join Date']),
     expirationDate: getDateValue(props['Expiration Date']),
     paid: getCheckboxValue(props['Membership Fee Paid']),
-    stripeSessionId: getRichText(props['Stripe Session ID']) || undefined,
   };
 };
 
@@ -208,12 +207,6 @@ export const membersRepository = {
       };
     }
 
-    if (input.stripeSessionId) {
-      properties['Stripe Session ID'] = {
-        rich_text: [{ text: { content: input.stripeSessionId } }],
-      };
-    }
-
     const response = await notionClient.pages.create({
       parent: { database_id: config.notionMembersDbId },
       properties: properties as Parameters<typeof notionClient.pages.create>[0]['properties'],
@@ -280,12 +273,6 @@ export const membersRepository = {
     if (input.paid !== undefined) {
       properties['Membership Fee Paid'] = {
         checkbox: input.paid,
-      };
-    }
-
-    if (input.stripeSessionId !== undefined) {
-      properties['Stripe Session ID'] = {
-        rich_text: [{ text: { content: input.stripeSessionId } }],
       };
     }
 

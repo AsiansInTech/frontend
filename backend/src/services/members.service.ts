@@ -104,7 +104,6 @@ export const membersService = {
         joinDate: toISODateString(joinDate),
         expirationDate: toISODateString(expirationDate),
         paid: true,
-        stripeSessionId: session.id,
       };
 
       return membersRepository.createMember(input);
@@ -131,7 +130,6 @@ export const membersService = {
       joinDate: toISODateString(joinDate),
       expirationDate: toISODateString(expirationDate),
       paid: true,
-      stripeSessionId: session.id,
     };
 
     // Optionally update other fields if provided in new checkout

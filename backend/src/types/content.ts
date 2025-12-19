@@ -22,7 +22,6 @@ export interface Member extends BaseEntity {
   joinDate: string;
   expirationDate: string;
   paid: boolean; // Maps to "Membership Fee Paid" in Notion
-  stripeSessionId?: string;
 }
 
 export interface CreateMemberInput {
@@ -34,6 +33,5 @@ export interface CreateMemberInput {
   joinDate: string;
   expirationDate: string;
   paid: boolean;
-  stripeSessionId?: string;
 }
 
