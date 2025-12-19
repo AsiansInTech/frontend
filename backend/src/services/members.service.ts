@@ -83,7 +83,7 @@ export const membersService = {
     const joinDate = new Date();
     const expirationDate = getExpirationDateForSemester(joinDate);
 
-    logger.info(`Processing checkout for: ${name} (${email}), studentId: ${studentId}, phone: ${phone}, shirtSize: ${shirtSize}`);
+    logger.info(`Processing checkout for: ${name} (${email})`);
 
     // Look up existing member
     const existing = await membersRepository.findMemberByStudentIdOrEmail(

@@ -2,7 +2,6 @@ import { notionClient } from './notion/notionClient';
 import { config } from '../config/env';
 import { Member, CreateMemberInput } from '../types/content';
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
-import { logger } from '../utils/logger';
 
 type NotionPropertyValue = PageObjectResponse['properties'][string];
 
@@ -159,8 +158,6 @@ export const membersRepository = {
    * Create a new member in the Notion database.
    */
   createMember: async (input: CreateMemberInput): Promise<Member> => {
-    logger.info(`Creating member in Notion: ${JSON.stringify(input)}`);
-
     if (!notionClient) {
       throw new Error('Notion client is not configured. Check NOTION_TOKEN.');
     }
@@ -168,8 +165,6 @@ export const membersRepository = {
     if (!config.notionMembersDbId) {
       throw new Error('NOTION_MEMBERS_DB_ID is not set.');
     }
-
-    logger.info(`Using Notion database ID: ${config.notionMembersDbId}`);
 
     const properties: Record<string, unknown> = {
       'Name': {

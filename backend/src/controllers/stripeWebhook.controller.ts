@@ -11,9 +11,6 @@ const stripe = config.stripeSecretKey
 
 export const stripeWebhookController = {
   handleStripeWebhook: async (req: Request, res: Response): Promise<void> => {
-    logger.info('Stripe webhook endpoint hit');
-    logger.info(`Request method: ${req.method}, Content-Type: ${req.headers['content-type']}`);
-
     if (!stripe) {
       logger.error('Stripe client not configured. Check STRIPE_SECRET_KEY.');
       res.status(500).json({ error: 'Stripe not configured' });
@@ -56,11 +53,7 @@ export const stripeWebhookController = {
       switch (event.type) {
         case 'checkout.session.completed': {
           const session = event.data.object as Stripe.Checkout.Session;
-          logger.info(`Processing checkout.session.completed for session: ${session.id}`);
-          logger.info(`Customer details: ${JSON.stringify(session.customer_details)}`);
-          logger.info(`Custom fields: ${JSON.stringify(session.custom_fields)}`);
           await membersService.createMemberFromStripeSession(session);
-          logger.info('Successfully processed checkout session');
           break;
         }
         default:
