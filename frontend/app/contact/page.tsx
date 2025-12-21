@@ -1,82 +1,10 @@
-import React from 'react'
+const DISCORD_LINK = '#discord-link-temp'
+const INSTAGRAM_LINK = '#instagram-link-temp'
+const CONTACT_EMAIL = 'info@AiT.com'
 
-const ContactPage = () => {
-  // Temp variables for social media links
-  const DISCORD_LINK = '#discord-link-temp'
-  const INSTAGRAM_LINK = '#instagram-link-temp'
-  const CONTACT_EMAIL = 'info@AiT.com'
-
-  // Temp officer data - replace with actual data later
-  const officers = [
-    {
-      id: 1,
-      name: 'John Smith',
-      role: 'President',
-      email: 'president@AiT.com',
-      linkedin: 'https://linkedin.com/in/johnsmith-temp',
-      image: '/officer-placeholder-1.jpg'
-    },
-    {
-      id: 2,
-      name: 'Sarah Johnson',
-      role: 'Vice President',
-      email: 'vp@AiT.com',
-      linkedin: 'https://linkedin.com/in/sarahjohnson-temp',
-      image: '/officer-placeholder-2.jpg'
-    },
-    {
-      id: 3,
-      name: 'Michael Chen',
-      role: 'Secretary',
-      email: 'secretary@AiT.com',
-      linkedin: 'https://linkedin.com/in/michaelchen-temp',
-      image: '/officer-placeholder-3.jpg'
-    },
-    {
-      id: 4,
-      name: 'Emily Davis',
-      role: 'Treasurer',
-      email: 'treasurer@AiT.com',
-      linkedin: 'https://linkedin.com/in/emilydavis-temp',
-      image: '/officer-placeholder-4.jpg'
-    },
-    {
-      id: 5,
-      name: 'David Wilson',
-      role: 'Events Coordinator',
-      email: 'events@AiT.com',
-      linkedin: 'https://linkedin.com/in/davidwilson-temp',
-      image: '/officer-placeholder-5.jpg'
-    },
-    {
-      id: 6,
-      name: 'Jessica Martinez',
-      role: 'Marketing Director',
-      email: 'marketing@couAiTgarcs.com',
-      linkedin: 'https://linkedin.com/in/jessicamartinez-temp',
-      image: '/officer-placeholder-6.jpg'
-    },
-    {
-      id: 7,
-      name: 'Robert Taylor',
-      role: 'Technical Lead',
-      email: 'technical@AiT.com',
-      linkedin: 'https://linkedin.com/in/roberttaylor-temp',
-      image: '/officer-placeholder-7.jpg'
-    },
-    {
-      id: 8,
-      name: 'Amanda Brown',
-      role: 'Outreach Coordinator',
-      email: 'outreach@AiT.com',
-      linkedin: 'https://linkedin.com/in/amandabrown-temp',
-      image: '/officer-placeholder-8.jpg'
-    }
-  ]
-
+export default function ContactPage() {
   return (
     <main className="section-shell space-y-12 md:space-y-16">
-      {/* Header */}
       <header className="space-y-4">
         <h1>Contact Us</h1>
         <p className="max-w-2xl text-gray-300">
@@ -84,9 +12,7 @@ const ContactPage = () => {
         </p>
       </header>
 
-      {/* Two-column section - Info and Form */}
       <section className="grid gap-10 md:grid-cols-2">
-        {/* Left Column - Information */}
         <div className="space-y-4">
           <h2>Get in Touch</h2>
           <p>
@@ -111,11 +37,14 @@ const ContactPage = () => {
             </a>
           </p>
           <p>
-            Have someone specific in mind? Our officers for the current term are listed below.
+            Want to meet the team? Check out our{' '}
+            <a href="/officers" className="text-gray-100 underline underline-offset-4 hover:text-gray-50 transition">
+              Officers page
+            </a>
+            .
           </p>
         </div>
 
-        {/* Right Column - Contact Form */}
         <div className="glass-panel p-6 md:p-7">
           <h2 className="mb-6">Send us a Message</h2>
           <form className="space-y-5">
@@ -164,54 +93,6 @@ const ContactPage = () => {
           </form>
         </div>
       </section>
-
-      {/* Officers Section */}
-      <section className="space-y-8">
-        <div className="text-center space-y-3">
-          <h2>Our Officers</h2>
-          <p className="text-gray-300 max-w-2xl mx-auto">
-            Meet the team leading Asians in Tech this year. Feel free to reach out directly!
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {officers.map((officer) => (
-            <div key={officer.id} className="glass-card p-5 space-y-4">
-              <div className="aspect-square rounded-xl bg-white/5 border border-white/10 overflow-hidden">
-                <img
-                  src={officer.image}
-                  alt={`${officer.name} - ${officer.role}`}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-lg font-semibold text-gray-50">{officer.name}</h3>
-                <p className="text-sm text-gray-400">{officer.role}</p>
-                <div className="flex gap-2 pt-2">
-                  <a
-                    href={`mailto:${officer.email}`}
-                    className="flex-1 text-center text-xs py-2 rounded-lg border border-white/20 bg-white/5 hover:bg-white/10 text-gray-100 transition"
-                    aria-label={`Email ${officer.name}`}
-                  >
-                    Email
-                  </a>
-                  <a
-                    href={officer.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 text-center text-xs py-2 rounded-lg border border-white/20 bg-white/5 hover:bg-white/10 text-gray-100 transition"
-                    aria-label={`${officer.name} LinkedIn`}
-                  >
-                    LinkedIn
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
     </main>
   )
 }
-
-export default ContactPage
