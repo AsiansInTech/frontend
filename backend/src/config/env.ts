@@ -4,6 +4,7 @@ export const config = {
   port: process.env.PORT ? parseInt(process.env.PORT, 10) : 4000,
   notionToken: process.env.NOTION_TOKEN,
   notionOfficersDbId: process.env.NOTION_OFFICERS_DB_ID,
+  notionMembersDbId: process.env.NOTION_MEMBERS_DB_ID,
 };
 
 if (!config.notionToken) {
@@ -12,5 +13,9 @@ if (!config.notionToken) {
 
 if (!config.notionOfficersDbId) {
   logger.warn('NOTION_OFFICERS_DB_ID is not set. Officers endpoint will not work.');
+}
+
+if (!config.notionMembersDbId) {
+  logger.warn('NOTION_MEMBERS_DB_ID is not set. Members endpoint will not work.');
 }
 

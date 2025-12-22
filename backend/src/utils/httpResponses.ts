@@ -20,6 +20,10 @@ export const notFound = (res: Response, message?: string): void => {
   res.status(404).json({ message: message || 'Not found' });
 };
 
+export const conflict = (res: Response, message?: string): void => {
+  res.status(409).json({ message: message || 'Conflict' });
+};
+
 export const serverError = (res: Response, message?: string): void => {
   res.status(500).json({ message: message || 'Internal server error' });
 };

@@ -9,4 +9,5 @@ export const healthService = {
 
 export { officersService } from './officers.service';
 export { eventService };
+export { membersService } from './members.service';
 

@@ -8,4 +8,5 @@ export const healthRepository = {
 
 export { officersRepository } from './officers.repository';
 export { eventRepository };
+export { membersRepository } from './members.repository';
 

@@ -27,3 +27,14 @@ export interface Event extends BaseEntity {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export interface Member extends BaseEntity {
+  name: string;           // firstName + lastName
+  firstName: string;
+  lastName: string;
+  studentId: string;
+  major: string;
+  majorOther?: string;    // When major === "Other"
+  email: string;
+  joinDate: string;       // ISO date string
+}

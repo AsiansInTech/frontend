@@ -16,4 +16,5 @@ export const healthController = {
 
 export { officersController } from './officers.controller';
 export { eventController };
+export { membersController } from './members.controller';
 
