@@ -55,7 +55,7 @@ export default function Footer() {
                 height={32}
                 className="rounded"
               />
-              <span className="font-semibold text-gray-100">AiT at UH</span>
+              <span className="font-semibold text-gray-100">Asians In Tech</span>
             </Link>
             <p className="text-sm text-gray-500 max-w-xs">
               Building community, growing skills, and creating opportunities for

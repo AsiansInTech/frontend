@@ -29,7 +29,7 @@ export default function Header() {
               height={32}
               className="rounded"
             />
-            <span className="font-semibold text-gray-100">AiT at UH</span>
+            <span className="font-semibold text-gray-100">Asians In Tech</span>
           </Link>
 
           {/* Desktop Navigation */}

@@ -10,7 +10,7 @@ export const eventController = {
   getAll: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const events = await eventService.getAllEvents();
-      ok(res, events);
+      ok(res, { events });
     } catch (error) {
       next(error);
     }

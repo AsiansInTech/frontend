@@ -2,24 +2,24 @@ import { Card, Section } from '../ui';
 
 const offerings = [
   {
-    title: 'Technical Growth',
+    title: 'example title 1',
     description:
-      'Learn new skills and technologies through hands-on experiences and peer collaboration.',
+      'example text 1',
   },
   {
-    title: 'Professional Development',
+    title: 'example title 2',
     description:
-      'Prepare for your career with resources, guidance, and connections to industry professionals.',
+      'example text 2',
   },
   {
-    title: 'Community',
+    title: 'example title 3',
     description:
-      'Join a supportive network of students who share your background and interests in tech.',
+      'example text 3',
   },
   {
-    title: 'Events & Activities',
+    title: 'example title 4',
     description:
-      'Participate in social events, competitions, and activities throughout the semester.',
+      'example text 4',
   },
 ];
 
