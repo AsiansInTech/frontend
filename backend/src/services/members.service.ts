@@ -1,12 +1,14 @@
 import { membersRepository } from '../repositories/members.repository';
-import { Member } from '../types/content';
+import { Member, Classification } from '../types/content';
 
 export interface CreateMemberInput {
   firstName: string;
   lastName: string;
   studentId: string;
+  classification: Classification;
   major: string;
   majorOther?: string;
+  minor?: string[];
   email: string;
 }
 
@@ -23,8 +25,10 @@ export const membersService = {
       firstName: data.firstName,
       lastName: data.lastName,
       studentId: data.studentId,
+      classification: data.classification,
       major: data.major,
       majorOther: data.majorOther,
+      minor: data.minor,
       email: normalizedEmail,
     });
   },

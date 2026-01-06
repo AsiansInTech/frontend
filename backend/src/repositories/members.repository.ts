@@ -1,6 +1,6 @@
 import { notionClient } from './notion/notionClient';
 import { config } from '../config/env';
-import { Member } from '../types/content';
+import { Member, Classification } from '../types/content';
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import { logger } from '../utils/logger';
 
@@ -16,6 +16,14 @@ const getTitleText = (prop: NotionPropertyValue | undefined): string => {
 const getSelectValue = (prop: NotionPropertyValue | undefined): string | undefined => {
   if (prop?.type === 'select' && prop.select) {
     return prop.select.name || undefined;
+  }
+  return undefined;
+};
+
+const getMultiSelectValues = (prop: NotionPropertyValue | undefined): string[] | undefined => {
+  if (prop?.type === 'multi_select' && Array.isArray(prop.multi_select)) {
+    const values = prop.multi_select.map(item => item.name);
+    return values.length > 0 ? values : undefined;
   }
   return undefined;
 };
@@ -48,14 +56,20 @@ const mapPageToMember = (page: PageObjectResponse): Member => {
   const firstName = nameParts[0] || '';
   const lastName = nameParts.slice(1).join(' ') || '';
 
+  // Major is multi_select in Notion but we treat it as single value (first item)
+  const majorValues = getMultiSelectValues(props.Major);
+  const major = majorValues && majorValues.length > 0 ? majorValues[0] : '';
+
   return {
     id: page.id,
     name,
     firstName,
     lastName,
     studentId: getRichTextValue(props['Student ID']) || '',
-    major: getSelectValue(props.Major) || '',
+    classification: (getSelectValue(props.Classification) as Classification) || 'Freshman',
+    major,
     majorOther: getRichTextValue(props['Major (Other)']) || undefined,
+    minor: getMultiSelectValues(props.Minor),
     email: getEmailValue(props.Email) || '',
     joinDate: getDateValue(props['Join Date']) || '',
   };
@@ -92,8 +106,10 @@ export const membersRepository = {
     firstName: string;
     lastName: string;
     studentId: string;
+    classification: Classification;
     major: string;
     majorOther?: string;
+    minor?: string[];
     email: string;
   }): Promise<Member> => {
     if (!notionClient) {
@@ -111,13 +127,18 @@ export const membersRepository = {
       const properties: any = {
         'Name': { title: [{ text: { content: fullName } }] },
         'Student ID': { rich_text: [{ text: { content: data.studentId } }] },
-        'Major': { select: { name: data.major } },
+        'Classification': { select: { name: data.classification } },
+        'Major': { multi_select: [{ name: data.major }] },
         'Email': { email: normalizedEmail },
         'Join Date': { date: { start: today } },
       };
 
       if (data.majorOther && data.majorOther.trim().length > 0) {
         properties['Major (Other)'] = { rich_text: [{ text: { content: data.majorOther.trim() } }] };
+      }
+
+      if (data.minor && data.minor.length > 0) {
+        properties['Minor'] = { multi_select: data.minor.map(m => ({ name: m })) };
       }
 
       const page = await notionClient.pages.create({

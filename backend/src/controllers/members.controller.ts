@@ -3,6 +3,13 @@ import { z } from 'zod';
 import { membersService } from '../services/members.service';
 import { created, badRequest, conflict } from '../utils/httpResponses';
 
+const ALLOWED_CLASSIFICATIONS = [
+  'Freshman',
+  'Sophomore',
+  'Junior',
+  'Senior',
+] as const;
+
 const ALLOWED_MAJORS = [
   'Computer Science',
   'Computer Engineering',
@@ -12,6 +19,34 @@ const ALLOWED_MAJORS = [
   'Management Information Systems (MIS)',
   'Computer Information Systems',
   'Mathematics',
+  'Other',
+] as const;
+
+const ALLOWED_MINORS = [
+  'Computer Science',
+  'Computer Engineering',
+  'Electrical Engineering',
+  'Industrial Engineering',
+  'Mechanical Engineering',
+  'Mathematics',
+  'Statistics',
+  'Business Administration',
+  'Finance',
+  'Accounting',
+  'Marketing',
+  'Economics',
+  'Psychology',
+  'Communications',
+  'English',
+  'History',
+  'Political Science',
+  'Sociology',
+  'Philosophy',
+  'Physics',
+  'Chemistry',
+  'Biology',
+  'Data Science',
+  'Cybersecurity',
   'Other',
 ] as const;
 
@@ -39,6 +74,9 @@ const createMemberSchema = z.object({
     .refine((val) => STUDENT_ID_PATTERN.test(val), {
       message: 'Student ID must be exactly 7 digits',
     }),
+  classification: z.enum(ALLOWED_CLASSIFICATIONS, {
+    errorMap: () => ({ message: 'Please select your classification' }),
+  }),
   major: z.enum(ALLOWED_MAJORS, {
     errorMap: () => ({ message: 'Please select a valid major from the list' }),
   }),
@@ -46,6 +84,9 @@ const createMemberSchema = z.object({
     .max(100, 'Major (Other) must be 100 characters or less')
     .trim()
     .optional(),
+  minor: z.array(z.enum(ALLOWED_MINORS, {
+    errorMap: () => ({ message: 'Please select valid minors from the list' }),
+  })).optional(),
   email: z.string()
     .trim()
     .toLowerCase()

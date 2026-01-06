@@ -28,13 +28,17 @@ export interface Event extends BaseEntity {
   updatedAt?: string;
 }
 
+export type Classification = 'Freshman' | 'Sophomore' | 'Junior' | 'Senior';
+
 export interface Member extends BaseEntity {
   name: string;           // firstName + lastName
   firstName: string;
   lastName: string;
   studentId: string;
+  classification: Classification;
   major: string;
   majorOther?: string;    // When major === "Other"
+  minor?: string[];       // Multiselect array
   email: string;
   joinDate: string;       // ISO date string
 }

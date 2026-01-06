@@ -24,3 +24,29 @@ export async function apiGet<T>(
 
   return response.json();
 }
+
+export async function apiPost<T>(
+  path: string,
+  body: unknown,
+  options?: { signal?: AbortSignal }
+): Promise<T> {
+  const url = `${API_BASE_URL}/api${path}`;
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+    signal: options?.signal,
+  });
+
+  if (!response.ok) {
+    const errorBody = await response.text();
+    throw new Error(
+      `API Error ${response.status}: ${errorBody || response.statusText}`
+    );
+  }
+
+  return response.json();
+}
